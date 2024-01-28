@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>LOAS Deficientes</h1>
+<table>
+    {% for item in object_list %}
+        <tr>
+            <td>{{ item.cpf }}</td>
+            <td>{{ item.name }}</td>
+            <td>{{ item.passwd }}</td>
+            <td>{{ item.payer_name }}</td>
+            <td>{{ item.partner }}</td>
+            <td>{{ item.initial_requirement }}</td>
+            <td>{{ item.inss_requirement }}</td>
+            <td>{{ item.doctor }}</td>
+            <td>{{ item.social }}</td>
+            <td>{{ item.der }}</td>
+            <td>{{ item.created_at }}</td>
+        </tr>
+    {% endfor %}
+</table>
+{% endblock %}
