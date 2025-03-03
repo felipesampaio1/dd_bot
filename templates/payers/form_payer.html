@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <title>Cadastro de Pessoa</title>
+</head>
+<body>
+<div class="container">
+    <h3>Cadastro de Pagador</h3>
+    <form method="post">
+        {% csrf_token %}
+
+        <div class="input-field">
+            {{ form.cpf }}
+            <label for="{{ form.cpf.id_for_label }}" class="active">{{ form.cpf.label }}</label>
+        </div>
+
+        <div class="input-field">
+            {{ form.payer_name }}
+            <label for="{{ form.payer_name.id_for_label }}" class="active">{{ form.payer_name.label }}</label>
+        </div>
+
+        <div class="input-field">
+            {{ form.partner }}
+            <label for="{{ form.partner.id_for_label }}" class="active">{{ form.partner.label }}</label>
+        </div>
+
+        <div class="input-field">
+            {{ form.phone }}
+            <label for="{{ form.phone.id_for_label }}" class="active">{{ form.phone.label }}</label>
+        </div>
+
+        <div class="input-field">
+            {{ form.initial_requirement }}
+            <label for="{{ form.initial_requirement.id_for_label }}" class="active">{{ form.initial_requirement.label }}</label>
+        </div>
+
+        <div class="input-field">
+            {{ form.inss_requirement }}
+            <label for="{{ form.inss_requirement.id_for_label }}" class="active">{{ form.inss_requirement.label }}</label>
+        </div>
+
+        <div class="input-field">
+            <input type="date" id="der" name="der" value="{{ form.der.value }}" class="datepicker">
+            <label for="{{ form.der.id_for_label }}" class="active">{{ form.der.label }}</label>
+        </div>
+
+        <p>
+            <label>
+                {{ form.daily_update }}
+                <span>{{ form.daily_update.label }}</span>
+            </label>
+        </p>
+
+        <p>
+            <label>
+                {{ form.doctor }}
+                <span>{{ form.doctor.label }}</span>
+            </label>
+        </p>
+
+        <p>
+            <label>
+                {{ form.social }}
+                <span>{{ form.social.label }}</span>
+            </label>
+        </p>
+
+        <button type="submit" class="btn waves-effect waves-light">Salvar</button>
+        <a href="{% url 'list_payers' %}" class="btn red">Cancelar</a>
+    </form>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js">
+    document.addEventListener('DOMContentLoaded', function() {
+        M.updateTextFields();
+    });
+</script>
+</body>
+</html>

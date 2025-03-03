@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <title>Excluir Pessoa</title>
+</head>
+<body>
+<div class="container">
+    <h3>Confirmar Exclusão</h3>
+    <p>Tem certeza que deseja excluir {{ payer.name }}?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn red">Confirmar</button>
+        <a href="{% url 'list_payers' %}" class="btn">Cancelar</a>
+    </form>
+</div>
+</body>
+</html>

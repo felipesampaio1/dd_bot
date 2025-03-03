@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Payers
+from .models import Payer
 
 # Register your models here.
-admin.site.register(Payers)
+admin.site.register(Payer)

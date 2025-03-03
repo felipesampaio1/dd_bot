@@ -26,5 +26,5 @@ B
 :
 
 dd_bot.iml,a/0/a0ebe7925af2c3c82d142ae59433a30cb8ee545e
-J
-templates/payers/base.html,4/e/4e24f81be64ea81a3e17c27f8879d5b3da437025
+C
+templates/base.html,d/a/da7c237b85a69c00a9ab8c189bf63e22070fcac3
