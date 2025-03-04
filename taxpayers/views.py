@@ -1,21 +1,15 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
-from django.views.generic import ListView
 
 from .forms import PayerForm
 from .models import Payer
 
-
-# Create your views here.
-class AllTaxpayers(ListView):
-    model: Payer
-    template_name = "payers/index.html"
-    queryset = Payer.objects.all()
-
-
+@login_required
 def list_payers(request):
     payers = Payer.objects.all()
     return render(request, 'payers/list_payers.html', {'payers': payers})
 
+@login_required
 def add_payer(request):
     if request.method == 'POST':
         form = PayerForm(request.POST)
@@ -26,7 +20,7 @@ def add_payer(request):
         form = PayerForm()
     return render(request, 'payers/form_payer.html', {'form': form})
 
-
+@login_required
 def edit_payer(request, id):
     payer = get_object_or_404(Payer, id=id)
     if request.method == 'POST':
@@ -41,7 +35,7 @@ def edit_payer(request, id):
         form = PayerForm(instance=payer)
     return render(request, 'payers/form_payer.html', {'form': form})
 
-
+@login_required
 def delete_payer(request, id):
     payer = get_object_or_404(Payer, id=id)
     if request.method == 'POST':

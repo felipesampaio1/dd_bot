@@ -3,8 +3,6 @@ from . import views
 
 
 urlpatterns = [
-    # path("", views.AllTaxpayers.as_view(), name="index")
-
     path('', views.list_payers, name='list_payers'),
     path('adicionar/', views.add_payer, name='add_payer'),
     path('editar/<uuid:id>/', views.edit_payer, name='edit_payer'),

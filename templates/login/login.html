@@ -1,0 +1,94 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+    <style>
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .login-box {
+            display: flex;
+            max-width: 700px;
+            width: 100%;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo-section {
+            background-color: #f4f4f4;
+            width: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-form-section {
+            padding: 30px;
+            width: 50%;
+        }
+
+        .form-title {
+            margin-bottom: 30px;
+        }
+
+        .form-footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="login-container">
+    <div class="login-box">
+        <div class="logo-section">
+            <img src="{% static 'images/capa-login.jpg' %}" alt="Logo" style="max-width: 80%; max-height: 80%;">
+        </div>
+        <div class="login-form-section">
+            <h5 class="form-title">Login</h5>
+            {% if messages %}
+                <ul class="red-text">
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            <form method="post">
+                {% csrf_token %}
+                <div class="input-field">
+                    <input type="text" id="username" name="username" class="validate" required>
+                    <label for="username">Nome de Usuário</label>
+                    {% if form.username.errors %}
+                        <span class="red-text">{{ form.username.errors }}</span>
+                    {% endif %}
+                </div>
+
+                <div class="input-field">
+                    <input type="password" id="password" name="password" class="validate" required>
+                    <label for="password">Senha</label>
+                    {% if form.password.errors %}
+                        <span class="red-text">{{ form.password.errors }}</span>
+                    {% endif %}
+                </div>
+
+                <button type="submit" class="btn waves-effect waves-light">Entrar</button>
+
+                <div class="form-footer">
+                    <a href="#">Esqueci minha senha</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+</html>
