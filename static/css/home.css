@@ -1,10 +1,13 @@
 body {
     display: flex;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
 }
 
 .content {
     flex: 1;
-    padding-left: 260px;
+    padding-left: 260px; /* Deixe espaço para a sidebar */
 }
 
 .container {
@@ -19,15 +22,25 @@ nav {
     z-index: 1000;
 }
 
-/* Corrigir a margem superior do conteúdo para evitar sobreposição da navbar */
 .content-wrapper {
     display: flex;
     flex-direction: column;
-    justify-content: flex-start; /* Iniciar o conteúdo no topo */
-    align-items: flex-start;
-    height: 100vh;
+    justify-content: center; /* Centralizar o conteúdo verticalmente */
+    align-items: center;     /* Centralizar o conteúdo horizontalmente */
+    height: calc(100vh - 64px); /* Subtrai a altura da navbar fixa */
     margin-top: 64px; /* Compensação da altura da navbar fixa */
     margin-left: 250px; /* Espaço para a sidebar */
+    width: calc(100% - 250px); /* Ajuste a largura para ocupar o restante da tela */
+}
+
+.centered-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; /* Manter a direção vertical */
+    width: 100%;  /* Usa toda a largura disponível */
+    text-align: center; /* Centraliza o texto dentro do container */
+    padding: 20px; /* Espaçamento interno */
 }
 
 /* Ajuste no tamanho da sidebar */
@@ -36,14 +49,16 @@ nav {
     position: fixed;
     top: 64px; /* Ajuste para não sobrepor a navbar */
     left: 0;
+    height: calc(100vh - 64px); /* Ajuste a altura para a sidebar ocupar toda a tela */
 }
 
 /* Ajuste para telas menores */
 @media (max-width: 992px) {
     .sidenav {
-        width: 200px;
+        width: 200px; /* Ajuste a largura da sidebar para telas menores */
     }
     .content-wrapper {
-        margin-left: 200px; /* Ajuste para telas menores */
+        margin-left: 200px; /* Ajuste a largura do conteúdo para telas menores */
+        width: calc(100% - 200px); /* Ajuste a largura para ocupar o restante da tela */
     }
 }

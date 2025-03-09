@@ -31,8 +31,8 @@ def edit_payer(request, id):
     else:
         if payer.der:
             payer.der = payer.der.strftime('%Y-%m-%d')
-
         form = PayerForm(instance=payer)
+
     return render(request, 'payers/form_payer.html', {'form': form})
 
 @login_required

@@ -22,43 +22,19 @@
 
 <!-- Menu Lateral -->
 <ul id="slide-out" class="sidenav sidenav-fixed">
-{#    <li>#}
-{#        <div class="user-view">#}
-{#            <div class="background blue darken-3"></div>#}
-{#            <a href="#"><img class="circle" src="{% static 'images/user-icon.png' %}" alt="user-icon"></a>#}
-{#            <a href="#"><span class="white-text name">{{ user.username }}</span></a>#}
-{#        </div>#}
-{#    </li>#}
-    <li><a href="#" onclick="loadContent('taxpayers')" class="waves-effect"><i class="material-icons">people</i>Taxpayers</a></li>
+    <li><a href="{% url 'list_payers' %}" class="waves-effect"><i class="material-icons">people</i>Taxpayers</a></li>
     <li><a href="#" onclick="loadContent('future-option')" class="waves-effect"><i class="material-icons">assignment</i>Outra Opção</a></li>
     <li><div class="divider"></div></li>
     <li><a href="{% url 'logout' %}" class="waves-effect red-text"><i class="material-icons">exit_to_app</i>Sair</a></li>
 </ul>
 
-<!-- Conteúdo Centralizado -->
 <main class="content-wrapper">
-    <div id="main-content" class="container center-align">
+    <div id="main-content" class="centered-content">
         <h4>Bem-vindo, {{ user.username }}!</h4>
         <p>Escolha uma opção no menu lateral.</p>
     </div>
 </main>
 
-<!-- Materialize JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-<script>
-    // Inicializar menu lateral
-    document.addEventListener('DOMContentLoaded', function() {
-        var elems = document.querySelectorAll('.sidenav');
-        M.Sidenav.init(elems);
-    });
-
-    // Função para carregar conteúdo dinâmico
-    function loadContent(page) {
-        document.getElementById("main-content").innerHTML = `<h5>Carregando ${page}...</h5>`;
-        setTimeout(() => {
-            document.getElementById("main-content").innerHTML = `<h4>Conteúdo de ${page}</h4><p>Esta é a página de ${page}.</p>`;
-        }, 500);
-    }
-</script>
 </body>
 </html>
