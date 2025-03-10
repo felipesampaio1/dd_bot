@@ -44,28 +44,6 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const atualizarBtn = document.getElementById('atualizar-bpc');
-
-        atualizarBtn.addEventListener('click', function () {
-            M.toast({html: 'Iniciando atualização dos dados BPC...'});
-
-            // Fazer requisição para cada contribuinte
-            fetch('/bpc/consultar/3a9c524f-0e9b-4961-8acb-f894635e2168')
-                .then(response => response.json())
-                .then(data => {
-                    if (data.status === 'success') {
-                        M.toast({html: 'Dados atualizados com sucesso!'});
-                        location.reload();
-                    } else {
-                        M.toast({html: 'Erro ao atualizar dados: ' + data.message});
-                    }
-                })
-                .catch(error => {
-                    M.toast({html: 'Erro ao fazer requisição: ' + error});
-                });
-        });
-    });
     function loadContent(url) {
         fetch(url, {
             headers: { 'X-Requested-With': 'XMLHttpRequest' }
