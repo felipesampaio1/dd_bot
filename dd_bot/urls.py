@@ -24,6 +24,7 @@ urlpatterns = [
     path('', home_view, name='home'),
     path('admin/', admin.site.urls),
     path('payers/', include('taxpayers.urls')),
-    path('login/', login_view, name='login'),
+    path('accounts/login/', login_view, name='login'),
     path('logout/', logout_view, name='logout'),
+    path('bpc/', include('bpc.urls')),
 ]

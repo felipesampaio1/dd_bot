@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'taxpayers.apps.TaxpayersConfig',
+    'bpc.apps.BpcConfig',
 ]
 
 MIDDLEWARE = [
