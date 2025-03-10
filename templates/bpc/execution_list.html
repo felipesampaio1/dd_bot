@@ -17,7 +17,7 @@
     .table-wrapper {
         max-height: calc(100vh - 250px); /* Ajuste conforme necessário */
         overflow-y: auto;  /* Habilita scroll apenas no eixo Y */
-        overflow-x: auto;
+        overflow-x: hidden;
     }
 </style>
 
@@ -26,23 +26,21 @@
         <div class="col s12">
             <div class="card">
                 <div class="card-content">
-                    <span class="card-title">Execuções BPC</span>
+                    <span class="card-title">Log de Consultas realizadas</span>
                     <div class="table-wrapper">
                         <table class="striped responsive-table">
                             <thead>
                             <tr>
-                                <th>ID</th>
-                                <th>Data de Criação</th>
-                                <th>Status</th>
                                 <th>Requerente</th>
+                                <th>Status</th>
+                                <th>Data de Criação</th>
                                 <th>Mensagem</th>
                             </tr>
                             </thead>
                             <tbody>
                             {% for execution in executions %}
                                 <tr>
-                                    <td>{{ execution.id }}</td>
-                                    <td>{{ execution.execution_date }}</td>
+                                    <td>{{ execution.payer_name }}</td>
                                     <td>
                                         {% if execution.success %}
                                             <span class="status-concluido">Concluído</span>
@@ -50,7 +48,7 @@
                                             <span class="status-erro">Erro</span>
                                         {% endif %}
                                     </td>
-                                    <td>{{ execution.payer_id }}</td>
+                                    <td>{{ execution.execution_date }}</td>
                                     <td>
                                         <a class="modal-trigger" href="#modal-message-{{ execution.id }}">Detalhes</a>
                                     </td>

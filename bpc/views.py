@@ -214,7 +214,13 @@ def consultar_bpc(request, payer_id):
 
 @login_required
 def execution_list(request):
-    executions = BpcExecution.objects.all().order_by('-execution_date')
+    executions = BpcExecution.objects.all()
+
+    for exec in executions:
+        exec.execution_date = exec.execution_date.strftime('%A, %d %B %Y %H:%M')
+        exec.payer_name = exec.payer.payer_name
+
+
     return render(request, 'bpc/execution_list.html', {'executions': executions})
 
 

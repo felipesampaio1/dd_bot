@@ -10,6 +10,10 @@ class BpcExecution(models.Model):
     success = models.BooleanField(default=False)
     error_message = models.TextField(blank=True)
 
+    class Meta:
+        ordering = ['-execution_date']
+        
+
 class BpcAtendimento(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     execution = models.ForeignKey(BpcExecution, on_delete=models.CASCADE)
