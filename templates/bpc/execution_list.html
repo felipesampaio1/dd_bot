@@ -1,0 +1,87 @@
+<style>
+    .status-erro {
+        background-color: #ffcdd2; /* vermelho claro */
+        color: #c62828; /* vermelho escuro */
+        padding: 5px;
+        border-radius: 5px;
+        display: inline-block;
+    }
+    .status-concluido {
+        background-color: #c8e6c9; /* verde claro */
+        color: #2e7d32; /* verde escuro */
+        padding: 5px;
+        border-radius: 5px;
+        display: inline-block;
+    }
+
+    .table-wrapper {
+        max-height: calc(100vh - 250px); /* Ajuste conforme necessário */
+        overflow-y: auto;  /* Habilita scroll apenas no eixo Y */
+        overflow-x: auto;
+    }
+</style>
+
+<div class="container">
+    <div class="row">
+        <div class="col s12">
+            <div class="card">
+                <div class="card-content">
+                    <span class="card-title">Execuções BPC</span>
+                    <div class="table-wrapper">
+                        <table class="striped responsive-table">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Data de Criação</th>
+                                <th>Status</th>
+                                <th>Requerente</th>
+                                <th>Mensagem</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for execution in executions %}
+                                <tr>
+                                    <td>{{ execution.id }}</td>
+                                    <td>{{ execution.execution_date }}</td>
+                                    <td>
+                                        {% if execution.success %}
+                                            <span class="status-concluido">Concluído</span>
+                                        {% else %}
+                                            <span class="status-erro">Erro</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ execution.payer_id }}</td>
+                                    <td>
+                                        <a class="modal-trigger" href="#modal-message-{{ execution.id }}">Detalhes</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modais para exibir o detalhe da mensagem -->
+    {% for execution in executions %}
+        <div id="modal-message-{{ execution.id }}" class="modal">
+            <div class="modal-content">
+                <h4>Detalhes da Mensagem</h4>
+                <p>{{ execution.error_message }}</p>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class="modal-close waves-effect waves-green btn-flat">Fechar</a>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+<script>
+    // Inicializa os modais após o carregamento do fragmento
+    document.addEventListener('DOMContentLoaded', function() {
+        var modals = document.querySelectorAll('.modal');
+        M.Modal.init(modals);
+    });
+</script>

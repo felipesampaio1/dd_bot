@@ -6,7 +6,7 @@ import os
 
 from datetime import datetime
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse
 from bs4 import BeautifulSoup
 from selenium import webdriver
@@ -211,3 +211,20 @@ def consultar_bpc(request, payer_id):
 
     except Payer.DoesNotExist:
         return JsonResponse({'status': 'error', 'message': 'Contribuinte não encontrado'})
+
+@login_required
+def execution_list(request):
+    executions = BpcExecution.objects.all().order_by('-execution_date')
+    return render(request, 'bpc/execution_list.html', {'executions': executions})
+
+
+# @login_required
+# def execution_detail(request, id):
+#     execution = get_object_or_404(BpcExecution, id=id)
+#
+#     # Supondo que os campos JSON estejam armazenados em um dicionário chamado `json_fields`
+#     # json_fields = {
+#     #     'Campo 1': execution,
+#     #     'Campo 2': execution.some_json_field_2,
+#     # }
+#     return render(request, 'bpc/execution_detail.html', {'execution': execution, 'json_fields': json_fields})

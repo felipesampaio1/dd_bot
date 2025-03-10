@@ -22,78 +22,23 @@
 
 <!-- Menu Lateral -->
 <ul id="slide-out" class="sidenav sidenav-fixed">
-    <li><a href="{% url 'list_payers' %}" class="waves-effect"><i class="material-icons">people</i>Taxpayers</a></li>
-    <li><a href="#" onclick="loadContent('future-option')" class="waves-effect"><i class="material-icons">assignment</i>Outra
-        Opção</a></li>
     <li>
-        <div class="divider"></div>
+        <a href="#" onclick="loadContent('{% url 'list_payers' %}')" class="waves-effect">
+            <i class="material-icons">people</i>Requerentes
+        </a>
+    <li>
+        <a href="#" onclick="loadContent('{% url 'execution_list' %}')" class="waves-effect">
+            <i class="material-icons">assignment</i>Consultas INSS
+        </a>
     </li>
-    <li><a href="{% url 'logout' %}" class="waves-effect red-text"><i class="material-icons">exit_to_app</i>Sair</a>
-    </li>
+    <li><div class="divider"></div></li>
+    <li><a href="{% url 'logout' %}" class="waves-effect red-text"><i class="material-icons">exit_to_app</i>Sair</a></li>
 </ul>
 
 <main class="content-wrapper">
     <div id="main-content" class="centered-content">
         <h4>Bem-vindo, {{ user.username }}!</h4>
         <p>Escolha uma opção no menu lateral.</p>
-    </div>
-    <div class="row">
-        <div class="col s12">
-            <div class="card">
-                <div class="card-content">
-                    <span class="card-title">Processos BPC LOAS</span>
-
-                    <div class="row">
-                        <div class="col s12">
-                            <table class="striped">
-                                <thead>
-                                <tr>
-                                    <th>CPF</th>
-                                    <th>Nome</th>
-                                    <th>Protocolo</th>
-                                    <th>Serviço</th>
-                                    <th>Situação</th>
-                                    <th>Data Abertura</th>
-                                    <th>Data Conclusão</th>
-                                    <th>Unidade</th>
-                                    <th>Ações</th>
-                                </tr>
-                                </thead>
-                                <tbody id="bpc-results">
-                                {% for atendimento in atendimentos %}
-                                    <tr>
-                                        <td>{{ atendimento.execution.payer.cpf }}</td>
-                                        <td>{{ atendimento.execution.payer.payer_name }}</td>
-                                        <td>{{ atendimento.protocolo }}</td>
-                                        <td>{{ atendimento.servico }}</td>
-                                        <td>{{ atendimento.situacao }}</td>
-                                        <td>{{ atendimento.data_abertura|date:"d/m/Y H:i:s" }}</td>
-                                        <td>{{ atendimento.data_conclusao|date:"d/m/Y H:i:s"|default:"-" }}</td>
-                                        <td>{{ atendimento.unidade }}</td>
-                                        <td>
-                                            <button class="btn-small waves-effect waves-light modal-trigger"
-                                                    href="#modal-detalhes-{{ atendimento.id }}">
-                                                Detalhes
-                                            </button>
-                                        </td>
-                                    </tr>
-                                {% endfor %}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col s12">
-                            <button id="atualizar-bpc" class="btn waves-effect waves-light">
-                                Atualizar Dados BPC
-                                <i class="material-icons right">refresh</i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 </main>
 
@@ -121,6 +66,25 @@
                 });
         });
     });
+    function loadContent(url) {
+        fetch(url, {
+            headers: { 'X-Requested-With': 'XMLHttpRequest' }
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Erro ao carregar conteúdo.");
+                }
+                return response.text();
+            })
+            .then(html => {
+                document.getElementById('main-content').innerHTML = html;
+                M.AutoInit();
+            })
+            .catch(error => {
+                console.error('Erro:', error);
+                M.toast({html: error.message});
+            });
+    }
 </script>
 </body>
 </html>
