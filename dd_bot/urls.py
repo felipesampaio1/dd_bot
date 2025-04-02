@@ -27,4 +27,5 @@ urlpatterns = [
     path('accounts/login/', login_view, name='login'),
     path('logout/', logout_view, name='logout'),
     path('bpc/', include('bpc.urls')),
+    path('config/', include('config.urls')),
 ]

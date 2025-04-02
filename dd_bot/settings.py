@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'taxpayers.apps.TaxpayersConfig',
     'bpc.apps.BpcConfig',
+    'config.apps.Config',
 ]
 
 MIDDLEWARE = [

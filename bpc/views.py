@@ -167,7 +167,6 @@ def consultar_bpc(request, payer_id):
 
                 detalhes['anexos'] = anexos
 
-
                 # Criar registro do atendimento
                 BpcAtendimento.objects.create(
                     execution=execution,
@@ -222,6 +221,17 @@ def execution_list(request):
 
 
     return render(request, 'bpc/execution_list.html', {'executions': executions})
+
+@login_required
+def service_list(request):
+    services = BpcAtendimento.objects.all()
+
+    for service in services:
+        service.data_solicitacao = service.data_solicitacao.strftime('%A, %d %B %Y %H:%M')
+        service.data_protocolo = service.data_protocolo.strftime('%A, %d %B %Y %H:%M')
+        service.data_nascimento = service.data_nascimento.strftime('%m/%d/%Y')
+
+    return render(request, 'bpc/service_list.html', {'atendimentos': services})
 
 
 # @login_required

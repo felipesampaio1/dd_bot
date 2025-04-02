@@ -16,6 +16,13 @@
         <a href="#" class="brand-logo center">Diego Dellyne Advogados</a>
         <ul class="right">
             <li><span class="white-text" style="margin-right: 10px;">Olá, {{ user.username }}  </span></li>
+            <li>
+                {% if config and config.autenticado %}
+                    <span class="new badge green" data-badge-caption="">Autenticado</span>
+                {% else %}
+                    <span class="new badge red" data-badge-caption="">Não Autenticado</span>
+                {% endif %}
+            </li>
         </ul>
     </div>
 </nav>
@@ -29,6 +36,16 @@
     <li>
         <a href="#" onclick="loadContent('{% url 'execution_list' %}')" class="waves-effect">
             <i class="material-icons">assignment</i>Consultas INSS
+        </a>
+    </li>
+    <li>
+        <a href="#" onclick="loadContent('{% url 'service_list' %}')" class="waves-effect">
+            <i class="material-icons">description</i>Atendimentos INSS
+        </a>
+    </li>
+    <li>
+        <a href="#" onclick="loadContent('{% url 'config' %}')" class="waves-effect">
+            <i class="material-icons">settings</i>Configurações
         </a>
     </li>
     <li><div class="divider"></div></li>

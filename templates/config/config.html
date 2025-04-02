@@ -1,0 +1,21 @@
+{% load static %}
+<div class="container">
+    <h4>Configurações</h4>
+    <form method="post">
+        {% csrf_token %}
+        <div class="input-field">
+            <input id="execution_period" type="number" name="execution_period"
+                   value="{{ config.execution_period }}" required>
+            <label for="execution_period" class="active">
+                Tempo de Execução Automática (minutos)
+            </label>
+        </div>
+        <p>
+            <label>
+                <input type="checkbox" name="autenticado" {% if config.autenticado %}checked{% endif %} />
+                <span>Autenticado</span>
+            </label>
+        </p>
+        <button type="submit" class="btn waves-effect waves-light">Salvar Configurações</button>
+    </form>
+</div>

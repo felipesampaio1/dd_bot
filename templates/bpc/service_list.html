@@ -1,0 +1,129 @@
+<style>
+    .status-erro {
+        background-color: #ffcdd2;
+        color: #c62828;
+        padding: 5px;
+        border-radius: 5px;
+        display: inline-block;
+    }
+    .status-concluido {
+        background-color: #c8e6c9;
+        color: #2e7d32;
+        padding: 5px;
+        border-radius: 5px;
+        display: inline-block;
+    }
+
+    .table-wrapper {
+        max-height: calc(100vh - 250px);
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+</style>
+
+<div class="container">
+    <div class="row">
+        <div class="col s12">
+            <div class="card">
+                <div class="card-content">
+                    <span class="card-title">Detalhes de Atendimentos BPC</span>
+                    <div class="table-wrapper">
+                        <table class="striped responsive-table">
+                            <thead>
+                            <tr>
+                                <th>Protocolo</th>
+                                <th>Requerente</th>
+                                <th>Serviço</th>
+                                <th>Unidade Responsável</th>
+                                <th>Status</th>
+                                <th>Data de Solicitação</th>
+                                <th>Ações</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for atendimento in atendimentos %}
+                                <tr>
+                                    <td>{{ atendimento.protocolo }}</td>
+                                    <td>{{ atendimento.nome_requerente }}</td>
+                                    <td>{{ atendimento.servico }}</td>
+                                    <td>{{ atendimento.unidade_responsavel }}</td>
+                                    <td>
+                                        {% if atendimento.situacao == 'Concluída' %}
+                                            <span class="status-concluido">Concluída</span>
+                                        {% else %}
+                                            <span class="status-erro">{{ atendimento.situacao }}</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ atendimento.data_solicitacao }}</td>
+                                    <td>
+                                        <a class="modal-trigger" href="#modal-detalhes-{{ atendimento.id }}">Detalhes</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% for atendimento in atendimentos %}
+        <div id="modal-detalhes-{{ atendimento.id }}" class="modal">
+            <div class="modal-content">
+                <h4>Detalhes do Atendimento</h4>
+                <table class="striped">
+                    <tr><th>Nome do Requerente</th><td>{{ atendimento.nome_requerente }}</td></tr>
+                    <tr><th>CPF</th><td>{{ atendimento.cpf_requerente }}</td></tr>
+                    <tr><th>Solicitante</th><td>{{ atendimento.solicitante }}</td></tr>
+                    <tr><th>Data de Nascimento</th><td>{{ atendimento.data_nascimento }}</td></tr>
+                    <tr><th>Email</th><td>{{ atendimento.email }}</td></tr>
+                    <tr><th>Telefone</th><td>{{ atendimento.telefone_fixo }}</td></tr>
+                    <tr><th>Celular</th><td>{{ atendimento.celular }}</td></tr>
+                </table>
+
+                <h5>Campos Adicionais</h5>
+                <table class="striped">
+                    {% for key, value in atendimento.campos_adicionais.items %}
+                        <tr><th>{{ key }}</th><td>{{ value }}</td></tr>
+                    {% endfor %}
+                </table>
+
+                {% if atendimento.anexos %}
+                    <h5>Anexos</h5>
+                    <table class="striped">
+                        <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Tipo</th>
+                            <th>Tamanho</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for anexo in atendimento.anexos %}
+                            <tr>
+                                <td>{{ anexo.nome }}</td>
+                                <td>{{ anexo.tipo }}</td>
+                                <td>{{ anexo.tamanho }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p>Não há anexos disponíveis.</p>
+                {% endif %}
+
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="modal-close waves-effect waves-green btn-flat">Fechar</a>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var modals = document.querySelectorAll('.modal');
+        M.Modal.init(modals);
+    });
+</script>
